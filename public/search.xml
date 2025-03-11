@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>ad-hoc me</title>
+      <link href="/blog/ad-hoc-me/"/>
+      <url>/blog/ad-hoc-me/</url>
+      
+        <content type="html"><![CDATA[<p>连着两天读起了书，好像一些文学的感受回来了。想着来记点啥或者写点啥。</p><p>翻出了Mac上旧的学文笔记，重读发现我以前的文风意外地造作。明明自己内心里是从来没有造作的本意的，一路上都是喜欢沈从文、汪曾祺、海明威那种冷峻的文风来着。本意也是以真诚为主，但是发现原来我还挺喜欢背人名、写title、掉书袋的。有点羞耻。 也有可能是民国文学读多了，写的词语不太现代吧。 现在想拽那种风格倒是写不出来了，还嫌自己有点过于口语化，也是和过去的自己悲喜不相通了。</p><p>再读当时对废名的诗的笔记，一下子就顺畅理解他是个啥意思了。当时为什么理解得那么粗浅？简而言之，废名认为诗的内容应该区别于散文的内容，不应该以承载作者情感为目的，而应该作为独立的、完整的存在，描述一个独立的故事，纯粹从想象力出发的东西，而不是折射、隐喻现实。我仍然喜欢这一类诗，但是好像也不觉得这是诗的唯一定义了。人家策兰的黑牛奶当然是写现实的，但是带给我的震撼不比别的少，难道那就不是诗吗？我想我比较认可诗应该是一种对文字的极致的探索，至于内容，只要是自由的、个体的，都行。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">文学的火花在我体内溅射的时候</span><br><span class="line">我欢腾</span><br><span class="line">我想</span><br><span class="line">我是一个临时的人</span><br><span class="line">ad-hoc</span><br><span class="line">——我自己，抒情诗</span><br></pre></td></tr></table></figure><p>今天从《恶心》里读到，安妮觉得男主角和她对存在的觉察是很不一样的。男主对周围静止的事物要求很高，希望他们别来打扰他。但是安妮是从行动的角度出发的，她想看自己怎么做才能符合心意。</p><p>其实我一开始完全不认可她。我从男主的视角一路追踪过来，觉得对周围的事物的存在发起质疑，这很对呀。好像自己只需要去观察、审视，只需要想，不需要做什么。我甚至觉得男主做出去巴黎找安妮的选择，并在路上产生强烈的奇遇感，都有点多余了。一直以来我都希望自己是一颗随风摇摆的树，站在那，从土里吸水，这些都不是我的选择，只是自然地发生。</p><p>不过读到那里的时候，微信读书里其他人的发言似乎在点我。他们都说男主不作出行动不好，真正的行动派才是勇敢的。这个道理我好像也懂，但我怎么从来没有反思过？原来我一直想做一棵树的愿望都是一种懒惰的退避，并非真正的自由？我回忆到我前两天发现的自己对《齐马蓝》的误解，好像也是一致的：我以为齐马蓝作为艺术家看到了全部，做到了全部，最后选择退避一切，回到蓝色泳池里打扫瓷砖，是跟我当树一样的终极又简单的目标，用无为来顺其自然。但是好像人家的本意是发现打扫瓷砖的时候只用专注于眼前下一件要做的事情，抛去一切杂念，从中获得纯粹的快乐。我以为是不做事、纯无视呢，原来人家是专注手头事啊，这本质好像不太一样。</p><p>当然对存在和虚无的觉察还是同样本质的，只是在选择上，我似乎不应该如此被动和不负责任，为什么不主动地搅动浑水呢？就好像不要再在这里空想，寻觅我对活着的终极定义了，我应该去做，办我手头临时的事去。</p><blockquote><p>反者道之动。 无为无不为。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> thoughts </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Reading LucidDreamer -- Towards High-Fidelity Text-to-3D Generation via Interval Score Matching</title>
+      <link href="/blog/Reading-LucidDreamer-Towards-High-Fidelity-Text-to-3D-Generation-via-Interval-Score-Matching/"/>
+      <url>/blog/Reading-LucidDreamer-Towards-High-Fidelity-Text-to-3D-Generation-via-Interval-Score-Matching/</url>
+      
+        <content type="html"><![CDATA[<p>论文地址： <a href="https://arxiv.org/abs/2311.11284" class="uri">https://arxiv.org/abs/2311.11284</a></p><p>作者：<a href="https://yixunliang.github.io/">Yixun Liang</a> <a href="https://abnervictor.github.io/2023/06/12/Academic-Self-Intro.html">Xin Yang</a>, <a href="https://ltt-o.github.io/">Jiantao Lin</a>, <a href="https://haodong-li.com/">Haodong Li</a>, <a href="https://xiaogang00.github.io/">Xiaogang Xu</a>, <a href="https://www.yingcong.me/">Yingcong Chen</a></p><p>发表： CVPR 2024 Highlight</p><p>Code：<a href="https://github.com/EnVision-Research/LucidDreamer" class="uri">https://github.com/EnVision-Research/LucidDreamer</a></p><hr /><blockquote><p>如果你去做这个任务，会怎么做？作者做的方法和你想的有什么差异？</p></blockquote><ul><li>解决SDS的oversmooth的问题。其实我之前探索过这个问题，是从SDS的公式分解出发的，发现跟non-increasing timestep sampling结合，在不同的时间步应用不同的SDS子项，能解决一定的问题。但是仍然只是mitigate，不是solve，我觉得这种 从多次2D生成结果中收敛出一个3D结果 的方式，免不了被平均，得到smooth后的结果，似乎是SDS的内在缺陷🤔除非改进成非optimize的方法；那不就换成了feed forward的思路了嘛</li></ul><h2 id="why">Why：</h2><ul><li>从2D diffusion model发展以来，基于SDS的方法可以把2D生成结果lift到3D，从而实现text-to-3D generation。这种生成结果富有想象力，而且只需要文本描述这种直观的输入，这类方法得到迅速的发展和关注。</li><li>但是基于SDS的方法有普遍的问题，那就是over-smoothing，过平滑。</li><li>这篇文章揭示了SDS背后的机制：把3D模型渲染的图像跟2D的伪ground truth相匹配，这种伪ground truth就是diffusion model的生成结果。问题在于，生成的伪GT通常是<strong>不一致</strong>的，而且有<strong>低质量</strong>。然而所有的这些伪GT所提供的更新方向全都提供给3D模型，就会让最终结果受到一个平均效应的影响，趋向于过平滑以及缺乏细节。</li><li>这篇文章还分析了伪GT效果不好的两个原因：<ol type="1"><li>伪GT是diffusion model的一步重建结果，有很高的重建误差</li><li>diffusion 路径的内在随机性让这些伪GT在语义上不同，这会导致平均效应，以及最终的的过平滑结果</li></ol></li></ul><h2 id="what">What：</h2><ul><li>为了解决上述问题，这篇文章提出中间分数匹配，Interval Score Matching（ISM），从两个有效的机制上提高了SDS的效果：<ol type="1"><li>通过应用DDIM inversion，ISM提供了一个可逆转的diffusion路径，减轻了平均效应</li><li>不同于让3D模型渲染的2D图像直接跟伪GT相匹配，ISM是让diffusion路径中的两个中间步相匹配，这样就能避免有高误差的一步重建带来的影响</li></ol></li><li>ISM相比SDS，稳定地实现了更高的真实性和更多的细节。</li><li>此外，ISM还跟3D Gaussian Splatting适配，新的3D生成模型实现了超过sota的效果。之前的sota需要多步训练，但本文只需要一步</li></ul><p>读前疑问：</p><ol type="1"><li>DDIM inversion跟SDS有啥关系，在这发挥了什么作用？SDS 可以看作一种高variance的DDIM，或者说ODE，用DDIM inversion来解决random noise引入的随机方差的问题。这个思路后来已经在很多篇论文里体现了，刷新对SDS的理解……</li><li>ISM跟diffusion的中间步的结果有关，而不再是最终重建好的图片，是这个意思吧？但是怎么做到的呢，是纯公式上的变化，还是整个机制流程会改变呢？公式上的</li><li>跟timesteps有关系吗，有没有考虑不同timesteps guidance的区别？没。</li></ol><h2 id="how">How：</h2><p>好多公式，直接写本本上了……</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Computer Notes </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SDS </tag>
+            
+            <tag> text-to-3D </tag>
+            
+            <tag> 3D generation </tag>
+            
+            <tag> diffusion model </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Where is my moveable feast</title>
       <link href="/blog/where-are-my-memories/"/>
       <url>/blog/where-are-my-memories/</url>
@@ -85,9 +135,9 @@
       
         <tags>
             
-            <tag> generative model </tag>
-            
             <tag> diffusion model </tag>
+            
+            <tag> generative model </tag>
             
         </tags>
       
