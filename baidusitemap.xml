@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jyzhu.top/blog/blog/about/index.html</loc>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
     <loc>https://jyzhu.top/blog/blog/%E6%8B%A5%E6%8C%A4/</loc>
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
-    <loc>https://jyzhu.top/blog/blog/%E5%8D%9A%E5%AD%A6%E5%B9%BB%E8%A7%89/</loc>
+    <loc>https://jyzhu.top/blog/blog/byebye/</loc>
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
@@ -17,7 +21,7 @@
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
-    <loc>https://jyzhu.top/blog/blog/byebye/</loc>
+    <loc>https://jyzhu.top/blog/blog/%E5%8D%9A%E5%AD%A6%E5%B9%BB%E8%A7%89/</loc>
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
@@ -46,10 +50,6 @@
   </url>
   <url>
     <loc>https://jyzhu.top/blog/blog/a-young-person/</loc>
-    <lastmod>2024-05-31</lastmod>
-  </url>
-  <url>
-    <loc>https://jyzhu.top/blog/blog/about/index.html</loc>
     <lastmod>2024-05-31</lastmod>
   </url>
   <url>
