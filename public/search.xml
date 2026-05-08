@@ -668,6 +668,33 @@
     
     
     <entry>
+      <title>Manipulate Neural Fields</title>
+      <link href="/blog/Manipulate-Neural-Fields/"/>
+      <url>/blog/Manipulate-Neural-Fields/</url>
+      
+        <content type="html"><![CDATA[<p>This is part of <a href="https://jyzhu.top/NeRF-Notebook/">my journey of learning NeRF</a>.</p><h2 id="manipulate-neural-fields">2.5. Manipulate Neural Fields</h2><p>Neural fields is ready to be a prime representation, similar as point clouds or meshes, that is able to be manipulated.</p><figure><img src="https://s2.loli.net/2023/01/12/okLGyeFmMvifhZW.png" alt="image-20221212211525928" /><figcaption>image-20221212211525928</figcaption></figure><p>You can either edit the input coordinates, or edit the parameters <span class="math inline">\(\theta\)</span>.</p><p>On the other axis, you can edit through an explicit geometry, or an implicit neural fields.</p><figure><img src="https://s2.loli.net/2023/01/12/S7HWcQPh1FtdJaw.png" alt="image-20221212213802209" /><figcaption>image-20221212213802209</figcaption></figure><p>The following examples 落在不同的象限。</p><h3 id="editing-the-input-via-explicit-geometry-left-up">Editing the input via Explicit geometry (left-up)</h3><ul><li><p>You can represent each object using a separated neural field (local frame), and then compose them together in different ways.</p></li><li><p>If you want to manipulate not only spatially, but also <strong>temporaly</strong>, it is also possible. You can add a time coordinate as the input of the neural field network, and transform the time input.</p></li><li><p>You can also manipulate (especially human body) via <strong>skeleton</strong>.</p><figure><img src="https://s2.loli.net/2023/01/12/y4bGulHpfOwWkqN.png" alt="image-20221212212838893" /><figcaption>image-20221212212838893</figcaption></figure><ul><li><p><strong>Beyond human</strong>, we can also first estimate different moving parts of an object, to form some skeleton structure, and then do the same.</p><figure><img src="https://s2.loli.net/2023/01/12/SBzGy3rnUaqLFI8.png" alt="Noguchi etal, CVPR22" /><figcaption>Noguchi etal, CVPR22</figcaption></figure></li></ul></li><li><p>Beyond rigid, we can also manipulate via <strong>mesh</strong>. coz we have plenty of manipulation tools on mesh. The deformation on mesh can be re-mapped as the deformation on the input coordinate</p><figure><img src="https://s2.loli.net/2023/01/12/UbFu74iCQ15mK3B.png" alt="image-20221212213601773" /><figcaption>image-20221212213601773</figcaption></figure></li></ul><h3 id="editing-the-input-via-neural-flow-fields-left-down">Editing the input via Neural Flow Fields (left-down)</h3><figure><img src="https://s2.loli.net/2023/01/12/zxFElDIuSnPioJ7.png" alt="image-20230104183222294" /><figcaption>image-20230104183222294</figcaption></figure><p>We use the <span class="math inline">\(f_{i\rightarrow j}\)</span> to edit the <span class="math inline">\(r_{i\rightarrow j}\)</span> to represent one ray into another one.</p><p>We need to define the consistency here, so that the network can learn through forward and backward:</p><figure><img src="https://s2.loli.net/2023/01/12/VS1K3rQxHXYPRIg.png" alt="image-20230104183453487" /><figcaption>image-20230104183453487</figcaption></figure><h3 id="editing-network-parameters-via-explicit-geometry-right-up">Editing network parameters via Explicit geometry (right-up)</h3><p>The knowledge is already in the network. So instead of editing the inputs, we can directly edit the network parameters for generating new things.</p><figure><img src="https://s2.loli.net/2023/01/12/w2XEyYn5qbh41OB.png" alt="image-20230104185014312" /><figcaption>image-20230104185014312</figcaption></figure><ul><li>This proposed solution makes use of an encoder. The encoder learns to represent the rotated input as a high-dimensional latent code Z, with the same rotation R, in 3-dim space. The the following network use the latent code to generate the <span class="math inline">\(f_\theta\)</span></li></ul><figure><img src="https://s2.loli.net/2023/01/12/ruER6MJPpljSZiX.png" alt="image-20230104185544623" /><figcaption>image-20230104185544623</figcaption></figure><ul><li>In this work, the key idea is to map the high-resolutional object and the similar but lower resolutional object into the same latent space. Then, you can easily manipulate the lower resolutional object, and it should also affect the higher resolutional one. Then, the shared latent space are put into the following neural field network, which outputs high resolutional results.</li></ul><figure><img src="https://s2.loli.net/2023/01/12/HL61itcqsIaEThX.png" alt="image-20230104202425695" /><figcaption>image-20230104202425695</figcaption></figure><figure><img src="https://s2.loli.net/2023/01/12/y7eCcKDmdUY4VOu.png" alt="image-20230104202625346" /><figcaption>image-20230104202625346</figcaption></figure><ul><li>This work (Yang et al. NeurlPS'21) about shape editing is &quot;super important&quot; but the speaker does not have enough time... Basically it shows that the tools that we use to manipulate a mesh can also be used on a neural field, where we can keep some of the network parameters to make sure the basic shape of the object the same, and then the magical thing is the &quot;curvature manipulation&quot; item. Given the neural field is differentiable, this can be achieved.</li></ul><figure><img src="https://s2.loli.net/2023/01/12/2lTvenQixfRm8Po.png" alt="image-20230104203311551" /><figcaption>image-20230104203311551</figcaption></figure><ul><li>Obeying the points (a.k.a generalization). It makes sure the manipulation done on the input points are reconstructed.</li></ul><h3 id="editing-network-parameters-via-neural-fields-right-down">Editing network parameters via Neural Fields (right-down)</h3><figure><img src="https://s2.loli.net/2023/01/12/5Ohb7ExW4osc1n2.png" alt="image-20230104204330741" /><figcaption>image-20230104204330741</figcaption></figure><ul><li>This work constructs a reasonable latent space of the object, then do interpolation of different objects.</li><li>Beyond geometry, we can also manipulate <strong>color</strong></li></ul><figure><img src="https://s2.loli.net/2023/01/12/vM1QwkT4BJqGNIR.png" alt="image-20230104204738067" /><figcaption>image-20230104204738067</figcaption></figure><p>It decomposes the network into shape and color networks, and we can edit each independently.</p><figure><img src="https://s2.loli.net/2023/01/12/38HNsE9GnF1pydQ.png" alt="image-20230104204937204" /><figcaption>image-20230104204937204</figcaption></figure><ul><li>This is the stylization work. It mainly depends on a different loss function, which does not search for the exact feature of the vgg, but somehow the nearest neighbor.</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Computer Notes </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Computer Vision </tag>
+            
+            <tag> NeRF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>NeRF Hybrid representations</title>
       <link href="/blog/NeRF-Hybrid-representations/"/>
       <url>/blog/NeRF-Hybrid-representations/</url>
@@ -722,11 +749,11 @@
     
     
     <entry>
-      <title>Manipulate Neural Fields</title>
-      <link href="/blog/Manipulate-Neural-Fields/"/>
-      <url>/blog/Manipulate-Neural-Fields/</url>
+      <title>NeRF Notebook</title>
+      <link href="/blog/NeRF-Notebook/"/>
+      <url>/blog/NeRF-Notebook/</url>
       
-        <content type="html"><![CDATA[<p>This is part of <a href="https://jyzhu.top/NeRF-Notebook/">my journey of learning NeRF</a>.</p><h2 id="manipulate-neural-fields">2.5. Manipulate Neural Fields</h2><p>Neural fields is ready to be a prime representation, similar as point clouds or meshes, that is able to be manipulated.</p><figure><img src="https://s2.loli.net/2023/01/12/okLGyeFmMvifhZW.png" alt="image-20221212211525928" /><figcaption>image-20221212211525928</figcaption></figure><p>You can either edit the input coordinates, or edit the parameters <span class="math inline">\(\theta\)</span>.</p><p>On the other axis, you can edit through an explicit geometry, or an implicit neural fields.</p><figure><img src="https://s2.loli.net/2023/01/12/S7HWcQPh1FtdJaw.png" alt="image-20221212213802209" /><figcaption>image-20221212213802209</figcaption></figure><p>The following examples 落在不同的象限。</p><h3 id="editing-the-input-via-explicit-geometry-left-up">Editing the input via Explicit geometry (left-up)</h3><ul><li><p>You can represent each object using a separated neural field (local frame), and then compose them together in different ways.</p></li><li><p>If you want to manipulate not only spatially, but also <strong>temporaly</strong>, it is also possible. You can add a time coordinate as the input of the neural field network, and transform the time input.</p></li><li><p>You can also manipulate (especially human body) via <strong>skeleton</strong>.</p><figure><img src="https://s2.loli.net/2023/01/12/y4bGulHpfOwWkqN.png" alt="image-20221212212838893" /><figcaption>image-20221212212838893</figcaption></figure><ul><li><p><strong>Beyond human</strong>, we can also first estimate different moving parts of an object, to form some skeleton structure, and then do the same.</p><figure><img src="https://s2.loli.net/2023/01/12/SBzGy3rnUaqLFI8.png" alt="Noguchi etal, CVPR22" /><figcaption>Noguchi etal, CVPR22</figcaption></figure></li></ul></li><li><p>Beyond rigid, we can also manipulate via <strong>mesh</strong>. coz we have plenty of manipulation tools on mesh. The deformation on mesh can be re-mapped as the deformation on the input coordinate</p><figure><img src="https://s2.loli.net/2023/01/12/UbFu74iCQ15mK3B.png" alt="image-20221212213601773" /><figcaption>image-20221212213601773</figcaption></figure></li></ul><h3 id="editing-the-input-via-neural-flow-fields-left-down">Editing the input via Neural Flow Fields (left-down)</h3><figure><img src="https://s2.loli.net/2023/01/12/zxFElDIuSnPioJ7.png" alt="image-20230104183222294" /><figcaption>image-20230104183222294</figcaption></figure><p>We use the <span class="math inline">\(f_{i\rightarrow j}\)</span> to edit the <span class="math inline">\(r_{i\rightarrow j}\)</span> to represent one ray into another one.</p><p>We need to define the consistency here, so that the network can learn through forward and backward:</p><figure><img src="https://s2.loli.net/2023/01/12/VS1K3rQxHXYPRIg.png" alt="image-20230104183453487" /><figcaption>image-20230104183453487</figcaption></figure><h3 id="editing-network-parameters-via-explicit-geometry-right-up">Editing network parameters via Explicit geometry (right-up)</h3><p>The knowledge is already in the network. So instead of editing the inputs, we can directly edit the network parameters for generating new things.</p><figure><img src="https://s2.loli.net/2023/01/12/w2XEyYn5qbh41OB.png" alt="image-20230104185014312" /><figcaption>image-20230104185014312</figcaption></figure><ul><li>This proposed solution makes use of an encoder. The encoder learns to represent the rotated input as a high-dimensional latent code Z, with the same rotation R, in 3-dim space. The the following network use the latent code to generate the <span class="math inline">\(f_\theta\)</span></li></ul><figure><img src="https://s2.loli.net/2023/01/12/ruER6MJPpljSZiX.png" alt="image-20230104185544623" /><figcaption>image-20230104185544623</figcaption></figure><ul><li>In this work, the key idea is to map the high-resolutional object and the similar but lower resolutional object into the same latent space. Then, you can easily manipulate the lower resolutional object, and it should also affect the higher resolutional one. Then, the shared latent space are put into the following neural field network, which outputs high resolutional results.</li></ul><figure><img src="https://s2.loli.net/2023/01/12/HL61itcqsIaEThX.png" alt="image-20230104202425695" /><figcaption>image-20230104202425695</figcaption></figure><figure><img src="https://s2.loli.net/2023/01/12/y7eCcKDmdUY4VOu.png" alt="image-20230104202625346" /><figcaption>image-20230104202625346</figcaption></figure><ul><li>This work (Yang et al. NeurlPS'21) about shape editing is &quot;super important&quot; but the speaker does not have enough time... Basically it shows that the tools that we use to manipulate a mesh can also be used on a neural field, where we can keep some of the network parameters to make sure the basic shape of the object the same, and then the magical thing is the &quot;curvature manipulation&quot; item. Given the neural field is differentiable, this can be achieved.</li></ul><figure><img src="https://s2.loli.net/2023/01/12/2lTvenQixfRm8Po.png" alt="image-20230104203311551" /><figcaption>image-20230104203311551</figcaption></figure><ul><li>Obeying the points (a.k.a generalization). It makes sure the manipulation done on the input points are reconstructed.</li></ul><h3 id="editing-network-parameters-via-neural-fields-right-down">Editing network parameters via Neural Fields (right-down)</h3><figure><img src="https://s2.loli.net/2023/01/12/5Ohb7ExW4osc1n2.png" alt="image-20230104204330741" /><figcaption>image-20230104204330741</figcaption></figure><ul><li>This work constructs a reasonable latent space of the object, then do interpolation of different objects.</li><li>Beyond geometry, we can also manipulate <strong>color</strong></li></ul><figure><img src="https://s2.loli.net/2023/01/12/vM1QwkT4BJqGNIR.png" alt="image-20230104204738067" /><figcaption>image-20230104204738067</figcaption></figure><p>It decomposes the network into shape and color networks, and we can edit each independently.</p><figure><img src="https://s2.loli.net/2023/01/12/38HNsE9GnF1pydQ.png" alt="image-20230104204937204" /><figcaption>image-20230104204937204</figcaption></figure><ul><li>This is the stylization work. It mainly depends on a different loss function, which does not search for the exact feature of the vgg, but somehow the nearest neighbor.</li></ul>]]></content>
+        <content type="html"><![CDATA[<p>I am currently burying myself into the sea of NeRF. I plan to archive my learning notes here. I am still a beginner, so the notes absolutely contain errors, and are not finished yet.</p><h1 id="contents">Contents</h1><p><a href="https://jyzhu.top/Learning-NeRF/">Learning NeRF</a>: Reading list, learning references, and plans</p><p><strong>Notes of CVPR22' Tutorial:</strong></p><p><a href="https://jyzhu.top/Introduction-to-NeRF/">1. Introduction to NeRF</a>: What is NeRF and its features</p><p>2. Techniques</p><p>​ <a href="https://jyzhu.top/NeRF-Network-Architecture/">2.1. Network Architecture</a></p><p>​ <a href="https://jyzhu.top/NeRF-Hybrid-representations/">2.2. Hybrid representations</a></p><p>​ <a href="https://jyzhu.top/NeRF-Differentiable-Forward-Maps/">2.3. Differentiable Forward Maps</a></p><p>​ <a href="https://jyzhu.top/Prior-based-reconstruction-of-neural-fields/">2.4. Prior-based reconstruction of neural fields</a></p><p>​ <a href="https://jyzhu.top/Manipulate-Neural-Fields/">2.5. Manipulate Neural Fields</a></p><p>3. Applications</p><p><em>TBC</em></p><p><strong>Notes of paper reading</strong>:</p><p><a href="https://jyzhu.top/Reading-NeuMan-Neural-Human-Radiance-Field-from-a-Single-Video/">Reading NeuMan: Neural Human Radiance Field from a Single Video</a></p>]]></content>
       
       
       <categories>
@@ -754,33 +781,6 @@
       <url>/blog/NeRF-Differentiable-Forward-Maps/</url>
       
         <content type="html"><![CDATA[<p>This is part of <a href="https://jyzhu.top/NeRF-Notebook/">my journey of learning NeRF</a>.</p><h2 id="differentiable-forward-maps">2.3. Differentiable Forward Maps</h2><figure><img src="https://s2.loli.net/2023/01/12/xp4avlLcJDI9R2k.png" alt="image-20221208175453557" /><figcaption>image-20221208175453557</figcaption></figure><h3 id="differentiable-rendering">Differentiable rendering</h3><figure><img src="https://s2.loli.net/2023/01/12/1Ng8wz2KP4oTiVH.png" alt="image-20221208181457315" /><figcaption>image-20221208181457315</figcaption></figure><p>Volume rendering can render fogs. Sphere rendering only render the solid surface, and needs ground truth supervision.? Neural renderer combines the two.</p><h3 id="differentiability-of-the-rendering-function-itself">Differentiability of the rendering function itself</h3><ul><li>BRDF Shading? details later.</li></ul><h3 id="differentiation-itself">Differentiation itself</h3><p>Design a neural network with higher order derivatives constraints and therefore directly use its derivative.</p><figure><img src="https://s2.loli.net/2023/01/12/Gi6IaAkhvlBxpoe.png" alt="image-20221208182302568" /><figcaption>image-20221208182302568</figcaption></figure><p>For example the Eikonal equation forces the neural network has a derivative as 1. Adding the eikonal loss then promises the neural network valid.</p><p>Generally, this kind of problems are: the solutions are constrained by its partial derivatives.</p><h3 id="special-identity-operator">Special: Identity Operator</h3><p><span class="math display">\[\text{Reconstruction} \rightarrow \hat 1()\rightarrow \text{Sensor domain}\\\text{Reconstruction} == \text{Sensor domain}\]</span></p><p>Q&amp;A:</p><ul><li>Can we obtain a neural network in just one forward, without optimization?</li><li>Can we design special forward maps for specific downstream tasks, eg., classification? Absolutely yes. We can design it to represent a compact representation as the sensor domain. The key idea is to get a differentiable function to map your specific recon and sensor domain.</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Computer Notes </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Computer Vision </tag>
-            
-            <tag> NeRF </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>NeRF Notebook</title>
-      <link href="/blog/NeRF-Notebook/"/>
-      <url>/blog/NeRF-Notebook/</url>
-      
-        <content type="html"><![CDATA[<p>I am currently burying myself into the sea of NeRF. I plan to archive my learning notes here. I am still a beginner, so the notes absolutely contain errors, and are not finished yet.</p><h1 id="contents">Contents</h1><p><a href="https://jyzhu.top/Learning-NeRF/">Learning NeRF</a>: Reading list, learning references, and plans</p><p><strong>Notes of CVPR22' Tutorial:</strong></p><p><a href="https://jyzhu.top/Introduction-to-NeRF/">1. Introduction to NeRF</a>: What is NeRF and its features</p><p>2. Techniques</p><p>​ <a href="https://jyzhu.top/NeRF-Network-Architecture/">2.1. Network Architecture</a></p><p>​ <a href="https://jyzhu.top/NeRF-Hybrid-representations/">2.2. Hybrid representations</a></p><p>​ <a href="https://jyzhu.top/NeRF-Differentiable-Forward-Maps/">2.3. Differentiable Forward Maps</a></p><p>​ <a href="https://jyzhu.top/Prior-based-reconstruction-of-neural-fields/">2.4. Prior-based reconstruction of neural fields</a></p><p>​ <a href="https://jyzhu.top/Manipulate-Neural-Fields/">2.5. Manipulate Neural Fields</a></p><p>3. Applications</p><p><em>TBC</em></p><p><strong>Notes of paper reading</strong>:</p><p><a href="https://jyzhu.top/Reading-NeuMan-Neural-Human-Radiance-Field-from-a-Single-Video/">Reading NeuMan: Neural Human Radiance Field from a Single Video</a></p>]]></content>
       
       
       <categories>
@@ -2417,25 +2417,6 @@
     
     
     <entry>
-      <title>疫期-大三上-碎念</title>
-      <link href="/blog/%E7%96%AB%E6%9C%9F-%E5%A4%A7%E4%B8%89%E4%B8%8A-%E7%A2%8E%E5%BF%B5/"/>
-      <url>/blog/%E7%96%AB%E6%9C%9F-%E5%A4%A7%E4%B8%89%E4%B8%8A-%E7%A2%8E%E5%BF%B5/</url>
-      
-        <content type="html"><![CDATA[<p>唉，疫情在家，这都多少天了。有安稳进行的，有新鲜的，有措手不及的。</p><p>跟她的状态算是安稳。几天之前写下的：</p><blockquote><p>对她的喜欢到了半夜自己一个人喃喃自语：Oh my fucking god, I love her. 的地步。闻所未闻吧，朱jy还会这样呢？并且这份爱没有给我不安全感。我觉得它是值得的，她值得，她对我的爱也值得。虽然一大片阴霾在眼前：疫情导致这学期见不到，交换导致大四一年见不到，留学就跑更远了……如果能认定的话，能把这些看上去很漫长但其实很短暂的人生给普通地消磨过去的话，未来有能力朝着她前进的时候，就不是什么问题了吧。<br />挺安稳的，踏踏实实走自己的路的感觉，有归宿有期待的感觉。</p></blockquote><p>安稳的还有学习，不知不觉已经过完前八周了，结了一波课，马上新开一波课。我对新的课没啥期待。</p><p>新鲜的是最近开始学吉他了。现在是每天左手指尖麻麻疼疼的状态。我真的不理解这是人能按的弦吗？在彻底改变身体的一部分（指让左手指尖痛觉彻底坏掉以便按弦）跟学会一门乐器之间选，我还真纠结了一下。不过学吉他还挺有意思的，我甚至花了一天把一整本教材的乐理都给看了一遍，调啊和弦啊节奏啊之类的概念，算是明白了，还挺妙。音乐真有意思，不啻文学嘛！</p><p>措手不及的是ANU交换给取消了，因为疫情。好不容易被选上的，当初我还真怪期待的。挺珍贵的机会，而且从我这破烂学校破烂专业，到人家好学校去学我想学的课程，简直美丽新人生。虽然要提前跟她异地（国）也很让人进退两难。但如今梦幻泡影一场，不胜难受。</p><p>另外还要自己反思一些：</p><ol type="1"><li>GRE背单词也太不积极了。要完啊。</li><li>爬虫真的恶心死我了。下次请学会拒绝，时间留在更宝贵的事情上不好吗。你现在整个人方向还是偏的，还没走上ds正途，你岌岌可危哎。</li><li>太懒了，天天只想发呆只想玩。以前那种学习新东西的兴奋劲呢？什么时候才能从这种漫长的疲劳状态中恢复过来啊？</li></ol><p>快让我回学校吧。我想见她。真的想。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> thoughts </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Anki使用笔记</title>
       <link href="/blog/anki%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
       <url>/blog/anki%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
@@ -2653,25 +2634,6 @@
       <url>/blog/%E6%91%98-annie-hall/</url>
       
         <content type="html"><![CDATA[<ul><li><p>Touch my heart... With your foot.</p></li><li>Hey, listen. Give me a kiss.</li><li>That was the most fun I've ever had without laughing.</li><li>Love is... too weak a word for... the way I feel. I lurve you. You know. I loave you. I luff you. With two Fs. Yes, I have to invent...</li><li><p>I know. A relationship, I think, is like a shark. It has to constantly move forward, or it dies. And I think what we got on our hands is a dead shark.</p></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> thoughts </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>悲观是我的一根病骨</title>
-      <link href="/blog/%E6%82%B2%E8%A7%82%E6%98%AF%E6%88%91%E7%9A%84%E4%B8%80%E6%A0%B9%E7%97%85%E9%AA%A8/"/>
-      <url>/blog/%E6%82%B2%E8%A7%82%E6%98%AF%E6%88%91%E7%9A%84%E4%B8%80%E6%A0%B9%E7%97%85%E9%AA%A8/</url>
-      
-        <content type="html"><![CDATA[<p>悲观是我的一根病骨<br />在凛冽的一生中不胜侵扰</p>]]></content>
       
       
       <categories>
@@ -2923,25 +2885,6 @@
     
     
     <entry>
-      <title>Every Day I Plan</title>
-      <link href="/blog/every-day-i-plan/"/>
-      <url>/blog/every-day-i-plan/</url>
-      
-        <content type="html"><![CDATA[<p>Recently I am really tired. I got tooo much to do, that I couldn't finish. And my mental as well as physical health status is just in danger. I am always tired, exhausted, losing my hair, eager to sleep. Sometimes I couldn't do anything, but most of the time I just buried myself into the task in my hands, thinking of nothing. I don't dare to think too much. Because there's always a question hanging there, that is, what's the meaning of all of this? Why on earth am I worried about my TOEFL? Why do I try my best to learn, to do everything? What do these things targeting? A success? Some happiness? What is a success? Is there any happiness?</p><p>I don't dare to ask. Not only because I do believe that there's no answer, but also because all of my intimates just told me to not bother myself thinking of these useless things. But I have another question here: if these questions don't have answers, then aren't those trivial problems in daily life truly useless?</p><p>Hell. I don't want to talk about them too much. I don't have time. I am trapped in these trivial things, and I just wanna be trapped. It's better than die, isn't it?</p><p>Soooooo, I am gonna set several rules for myself. That's about what to do and how to live:</p><ol type="1"><li>Get up 30 min earlier than routine and go to practice English speaking.</li><li>Get to sleep before 12 every night.</li><li>Definition of Things during Rest Time:<ol type="1"><li>Reading books. (Recommendation: ⭐️⭐️⭐️⭐️⭐️)</li><li>Sleeping. (⭐️⭐️⭐️⭐️⭐️)</li><li>Listen to English podcasts. (⭐️⭐️⭐️⭐️)</li><li>Coding. (⭐️⭐️⭐️⭐️)</li><li>Writing here. (⭐️⭐️⭐️)</li></ol></li><li>Definition of Rest Time:<ol type="1"><li>After the sunsets and there's no homework that must be done.</li><li>Naptime in the noon.</li><li>Weekends after finishing homework.</li></ol></li><li>Daily Tasks to choose from (2 out of 6):<ol type="1"><li>Running.</li><li>Learning vocabulary.</li><li>Listening to English.</li><li>TOEFL Tests.</li><li>Reviewing courses.</li><li>Learning extra computer knowledge.</li></ol></li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> thoughts </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Rubiks-Cube-Recover-Bot 魔方复原机器人</title>
       <link href="/blog/Rubiks-Cube-Recover-Bot-%E9%AD%94%E6%96%B9%E5%A4%8D%E5%8E%9F%E6%9C%BA%E5%99%A8%E4%BA%BA/"/>
       <url>/blog/Rubiks-Cube-Recover-Bot-%E9%AD%94%E6%96%B9%E5%A4%8D%E5%8E%9F%E6%9C%BA%E5%99%A8%E4%BA%BA/</url>
@@ -3054,25 +2997,6 @@
     
     
     <entry>
-      <title>Anxiety</title>
-      <link href="/blog/anxiety/"/>
-      <url>/blog/anxiety/</url>
-      
-        <content type="html"><![CDATA[<p>Recently I'm feeling very upset, even say, depressed. Especially when the sun goes down, and the sky turns dark, I almost wanna cry. I hope to get drunk once but after rethinking, I find it no chance. My baby won't let me do this.</p><p>I don't know specificly why I come here again. Perhaps it's because of the recent pressure from the English test, which I regarded as an impossible goal from the bottom of my heart. Once something impossible comes to my life, I cannot stand it at all.</p><p>I'm confused about why I should keep alive. I know this is a naive question and all the feelings are trivial.</p><p>So I won't talk about them anymore.</p><p>Today I studied English and I find myself just terrible. None of the four sections, reading, listening, speaking or writing, none is good enough. I am worried.</p><p>OK OK stop.</p><p>I am here to practice writing, even though these words are like shits, I still have to practice it. The good news is that nobody would read this piece of shit at all. It's just like I'm writing diaries.</p><p>Well. I find that I can earn a little money from WeChat Official Accounts with the tiny ads after my passages, as long as someone clicks on it. This is the happiest thing happens today, encouraging me to write more. But now I'm writing here because I don't wanna expose my personal emotion to the public, well, most importantly, to my mom.</p><p>Yesterday I posted 2 &quot;poems&quot; on that Account (the two quotation-marks here mean that I think the poems are as terrible as shits). And very soon I got concerned messages from my mom. I don't want her to be worried about me at all. And anyway I don't think this is something really mattering.</p><p>I am in my third year of college, an ordinary college in which I came just because of poor performance in the entrance exam. I think I am a little special among the students here, but people special like me are still abundant. I have lots of things that I want to do as well as lots of things I have to do, but only half of them I've done successfully.</p><p>I am very anxious. Honestly, I think I'm already in a sub-health mental statue. I hope to study hard mostly to avoid trapping into these emotions.</p><p>Well, the battery almost runs over. I think I have to shut up.</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> thoughts </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>喃喃</title>
       <link href="/blog/nam-nam/"/>
       <url>/blog/nam-nam/</url>
@@ -3132,25 +3056,6 @@
       <url>/blog/pure-rethinking/</url>
       
         <content type="html"><![CDATA[<p>今天出了上学期的成绩啦，虽然名次上看起来退步不是很多，奖学金也勉强保持在了一样的水平，可是我还是很失落，因为知道自己上学期在学习上糟蹋成了什么样，如果更用心一点，本应该是什么样。 就是很失落。社交上、活动上，明明就已经是很差劲的状态了，学习上那么点小天赋，又被懒和怠惰霍霍得一无是处。这样不值一提的状态真是糟糕透顶。 我觉得应该要改变一些什么。总不能做一个顽固不化的人吧？这些看上去也不是不能改的样子。那就改变一些什么吧。虽然有时候懒和怠惰会使我发问，到底为什么要活得那么用力；可是我也该搞明白，虚荣和焦虑根本也不容我待在低谷里，这样会死掉的。 真是矛盾又很难做的一个人啊。还是睡好吃好，少想点有的没的，简单高效，高阈值低感知地活着吧。麻木点才好啊，这样敏感一人，常常影响到效率的。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> thoughts </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Follow This TOEFL Plan or Die</title>
-      <link href="/blog/follow-this-toefl-plan-or-die/"/>
-      <url>/blog/follow-this-toefl-plan-or-die/</url>
-      
-        <content type="html"><![CDATA[<p>I have to make this precise and essential TOEFL Review Plan because:</p><ol type="1"><li>The god damn Xiaozhan organization predicts that I will fail if I learn this all by myself. But I don't give a shit.</li><li>The TOEFL entry fee is fucking expensive. And I've just missed one. I want this terrible experience to give me a lesson.</li><li>I am too old to waste time!!!</li></ol><p>And my plan is:</p><p><strong>Everyday task</strong></p><p><strong>time</strong></p><p><strong>Especial for weekends</strong></p><p>time</p><p>100 Words in Bubei Danci</p><p>while playing phone</p><p>take 1 simulation exam &amp; review</p><p>whole morning in the library</p><p>1 whole speaking part &amp; review</p><p>early in the morning</p><p>1 whole reading part &amp; review</p><p>spare time</p><p>1 listening with dictation &amp; reading</p><p>spare time</p><p>1 writing class with homework</p><p>spare time</p><p>This plan is effective for the next week since I have to measure the time cost to determine if it's enough.</p>]]></content>
       
       
       <categories>
@@ -3500,25 +3405,6 @@
     
     
     <entry>
-      <title>圆</title>
-      <link href="/blog/%E5%9C%86/"/>
-      <url>/blog/%E5%9C%86/</url>
-      
-        <content type="html"><![CDATA[<p>出生之时无人问我，<br />是否愿意降临这世上？<br />无故地迫我<br />落入这段循环的空档<br />春天里我问<br />哪里适合把花来葬？<br />到了秋天我问<br />柚子自己想不想高高挂枝上？<br />游历四方时我问<br />何以来这无何有之乡？<br />秉烛夜奔时我问<br />星空下何需这微渺的光？<br />一些石子滚过我<br />乒乒乓乓叮咚哐啷<br />许多马蹄踏过我<br />咣咣咣咣咣咣<br />我等啊等啊等啊等到<br />整个天空<br />第32714次<br />只剩斜阳<br />那戈多的信使来回答我：<br />圆是生命的形状</p><p>——高三命题小作文《圆》</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>放学</title>
       <link href="/blog/%E6%94%BE%E5%AD%A6/"/>
       <url>/blog/%E6%94%BE%E5%AD%A6/</url>
@@ -3620,31 +3506,6 @@
           
       </categories>
       
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Eternal</title>
-      <link href="/blog/eternal/"/>
-      <url>/blog/eternal/</url>
-      
-        <content type="html"><![CDATA[<p>我的乌紫色的天底下<br />到底是什么一种蛇在嘶吼<br />在引我体内的火苗<br />升腾的同时奄奄一息？<br />我感到我的四肢分明乏力<br />但又想要最深的紧绷<br />我的躁狂的心需要一盆酒来浸泡<br />让我腾腾上升<br />这世间到底有什么隐蔽的事物<br />遮挡在我整个眼前<br />弥漫在我整个空间<br />我要疯了<br />或者已经疯过几次了<br />我在疯而又疯的道路上<br />狂奔<br />是什么引起我下坠的欲望<br />是什么引起我粉碎的欲望<br />是什么引起我升腾的欲望<br />我感到<br />人不是世界上重要的事情<br />什么是？<br />神秘主义满足不了我<br />理性主义更不<br /><strong>我不渴望美了 </strong><br /><strong>我只想要减缓我的大脑的转速</strong><br /><strong>否则请给我永恒</strong></p><p>19.7.20</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 难言二首 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -3784,9 +3645,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> Notebook </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -3830,9 +3691,9 @@
       
         <tags>
             
-            <tag> Notebook </tag>
-            
             <tag> C </tag>
+            
+            <tag> Notebook </tag>
             
         </tags>
       
@@ -4009,25 +3870,6 @@
       <categories>
           
           <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>三月对善恶的思考</title>
-      <link href="/blog/thought-about-march/"/>
-      <url>/blog/thought-about-march/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>17年3月13的老日记了，现在看主要是思考的那股劲儿值得玩味。</p><p>—— now</p></blockquote><p>无疑我此阶段是一个不善良者。</p><p>但我粗浅地提出一个假设：</p><p>世上有两种善良，</p><p>一种是混沌式善良。是不假思索的，凭着某种本性和执念的，低智商的善良。</p><p>另一种是空灵式善良。是高境界的逻辑自洽的善良，也是真正的善良。</p><p>我认为从混沌式善良转入空灵式善良的路上，很可能会经过一个迷惘时期，是随着观察样本的扩大以及思考的不断前进，自己曾经构建于心中的瘸腿善良之建筑轰然倒塌，因而信念缺失，举足无路，陷入自我崩坏中。</p><p>也就是我此刻正在经历的时期。</p><p>当然我认为有许多人会长久乃至永久地止步于此时期，也有许多天资异秉的人生来跳过了混沌式善良时期直接步入此过渡时期。</p><p>然而后路何在呢？我想一是继续思考继续扩大样本范围，二是吸取古来圣人德人高尚之人的思索之成果，也即多读一些书。</p><p>可能等到复行数十步会豁然开朗，才见土地平旷屋舍俨然吧。那才是真正的世界的样子，是归宿的样子，是生命不去想死的真正原因。</p><p>那么我们不妨来随意思考一下那些圣母婊的性质。</p><p>我想一个处于迷惘期乃至空灵期的人都是不屑于伪装或是成为一个圣母婊的，因为他们已经对善良进行了一番思考 自然能看出圣母婊式善良的残缺所在。</p><p>所以我想圣母婊必然是混沌式善良中人。但是细想的话，其特质仍可分为二：</p><p>一则虚伪型。当然此虚伪不是主观式虚伪，而是客观式虚伪，是心智或是意志还没有成长到意识或是接受他人及自己人性中阴暗的一面的人。因此他们遇上「给你180亿元踩死一只小狗」的空想实验会掷地有声地发表言论称「我才不选钱并且你们这些选钱的都是无可救药之人」。但实际上是他们并未真正把自己代入那样的真实情境去思考，而是仅凭直觉上的道义做出了粗略的判断。当他们真正面临这样的情景，绝大多数可能会食言反悔，暴露真面目，是为虚伪。</p><p>二则愚昧型。此类可能是年龄较小，当然也可能是天生止步于此。</p><p>我也曾经是此类人。</p><p>愚昧型圣母婊心中的善恶标准是模糊乃至错误的，他们会把某些原本该用另一套跳脱出善恶的尺规来衡量的事物，划分入不善良的体系，进而做出一些行为来阻遏它，此种行为却造成了真正意义上的恶。例如爱狗人士砸饭店，或是盲目爱国等。</p><p>此种圣母婊，颠倒黑白，逻辑混乱。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> thoughts </category>
           
       </categories>
       

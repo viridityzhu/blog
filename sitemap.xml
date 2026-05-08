@@ -569,15 +569,6 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/%E5%9C%86/</loc>
-    
-    <lastmod>2021-12-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://jyzhu.top/blog/%E6%88%91%E7%9A%84%E5%A4%96%E5%85%AC/</loc>
     
     <lastmod>2021-12-22</lastmod>
@@ -797,15 +788,6 @@
     <loc>https://jyzhu.top/blog/Shortcut-Modification-for-Amethyst/</loc>
     
     <lastmod>2021-09-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/%E6%82%B2%E8%A7%82%E6%98%AF%E6%88%91%E7%9A%84%E4%B8%80%E6%A0%B9%E7%97%85%E9%AA%A8/</loc>
-    
-    <lastmod>2021-08-05</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1136,15 +1118,6 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/eternal/</loc>
-    
-    <lastmod>2021-07-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://jyzhu.top/blog/anything/</loc>
     
     <lastmod>2021-07-30</lastmod>
@@ -1263,15 +1236,6 @@
   
   <url>
     <loc>https://jyzhu.top/blog/%E6%91%98-annie-hall/</loc>
-    
-    <lastmod>2021-07-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/thought-about-march/</loc>
     
     <lastmod>2021-07-30</lastmod>
     
@@ -1406,15 +1370,6 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/follow-this-toefl-plan-or-die/</loc>
-    
-    <lastmod>2020-08-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://jyzhu.top/blog/anki%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-08-06</lastmod>
@@ -1443,24 +1398,6 @@
   
   <url>
     <loc>https://jyzhu.top/blog/a-rain-in-frog-sing/</loc>
-    
-    <lastmod>2020-08-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/anxiety/</loc>
-    
-    <lastmod>2020-08-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/every-day-i-plan/</loc>
     
     <lastmod>2020-08-06</lastmod>
     
@@ -1649,15 +1586,6 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/%E7%96%AB%E6%9C%9F-%E5%A4%A7%E4%B8%89%E4%B8%8A-%E7%A2%8E%E5%BF%B5/</loc>
-    
-    <lastmod>2020-08-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://jyzhu.top/blog/%E7%9B%86%E6%A0%BD/</loc>
     
     <lastmod>2020-08-06</lastmod>
@@ -1699,7 +1627,21 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/%E4%B8%89%E5%97%A8/</loc>
+    <loc>https://jyzhu.top/blog/tags/%E9%9A%BE%E8%A8%80%E4%BA%8C%E9%A6%96/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/philosophy/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/literature/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1727,14 +1669,7 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/philosophy/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/literature/</loc>
+    <loc>https://jyzhu.top/blog/tags/%E4%B8%89%E5%97%A8/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1748,7 +1683,49 @@
   </url>
   
   <url>
+    <loc>https://jyzhu.top/blog/tags/C/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Notebook/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/3D-Computer-Vision/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://jyzhu.top/blog/tags/LLM/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Typora/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Theme/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Evangelion/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1776,7 +1753,7 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/3D-Computer-Vision/</loc>
+    <loc>https://jyzhu.top/blog/tags/NeRF/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1784,6 +1761,13 @@
   
   <url>
     <loc>https://jyzhu.top/blog/tags/Docker/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Java/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1804,28 +1788,21 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/NeRF/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/Java/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/Notebook/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://jyzhu.top/blog/tags/grandpa/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Data-Structure/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/AI/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1846,14 +1823,14 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/Data-Structure/</loc>
+    <loc>https://jyzhu.top/blog/tags/3DCV/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/3DCV/</loc>
+    <loc>https://jyzhu.top/blog/tags/Hand/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1868,62 +1845,6 @@
   
   <url>
     <loc>https://jyzhu.top/blog/tags/3D-Human/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/3D-Generation/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/Human-Reconstruction/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/Hand/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/AI/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/Self-supervised/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/Video-Generation/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/Arduino/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/SQL/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1958,7 +1879,70 @@
   </url>
   
   <url>
+    <loc>https://jyzhu.top/blog/tags/3D-Generation/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Human-Reconstruction/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Self-supervised/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Video-Generation/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Arduino/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Ghost-In-The-Shell/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/SQL/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/generative-model/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://jyzhu.top/blog/tags/Mac/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Pytorch3D/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1979,27 +1963,6 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/Ghost-In-The-Shell/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/generative-model/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/Pytorch3D/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://jyzhu.top/blog/tags/Scala/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2007,21 +1970,7 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/Typora/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/Theme/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/Evangelion/</loc>
+    <loc>https://jyzhu.top/blog/tags/Markdown/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2049,20 +1998,6 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/C/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/family/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://jyzhu.top/blog/tags/Charles/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2084,7 +2019,7 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/Markdown/</loc>
+    <loc>https://jyzhu.top/blog/tags/family/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2112,13 +2047,6 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/%E9%9A%BE%E8%A8%80%E4%BA%8C%E9%A6%96/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://jyzhu.top/blog/tags/Git/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2127,6 +2055,13 @@
   
   <url>
     <loc>https://jyzhu.top/blog/tags/%E6%96%87%E5%AD%A6/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/SEO/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2148,13 +2083,6 @@
   
   <url>
     <loc>https://jyzhu.top/blog/tags/%E4%B9%A6%E8%AF%84/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://jyzhu.top/blog/tags/SEO/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2259,13 +2187,6 @@
   </url>
   
   <url>
-    <loc>https://jyzhu.top/blog/tags/Paper/</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://jyzhu.top/blog/tags/Crawler/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2281,6 +2202,13 @@
   
   <url>
     <loc>https://jyzhu.top/blog/tags/ZhihuCrawl/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jyzhu.top/blog/tags/Paper/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
