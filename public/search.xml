@@ -668,6 +668,60 @@
     
     
     <entry>
+      <title>NeRF Hybrid representations</title>
+      <link href="/blog/NeRF-Hybrid-representations/"/>
+      <url>/blog/NeRF-Hybrid-representations/</url>
+      
+        <content type="html"><![CDATA[<p>This is part of <a href="https://jyzhu.top/NeRF-Notebook/">my journey of learning NeRF</a>.</p><h2 id="hybrid-representations">2.2. Hybrid representations</h2><h3 id="tradeoffs-of-choosing-a-proper-representation">Tradeoffs of choosing a proper representation</h3><figure><img src="https://s2.loli.net/2023/01/12/NyvS91xlLJA8KWR.png" alt="image-20221208172055153" /><figcaption>image-20221208172055153</figcaption></figure><figure><img src="https://s2.loli.net/2023/01/12/sDg8FHQcjrGRW1b.png" alt="image-20221208172209556" /><figcaption>image-20221208172209556</figcaption></figure><p>You may choose one proper representation depending on your own application</p><h3 id="grid">1. Grid</h3><figure><img src="https://s2.loli.net/2023/01/12/ZpYEMbXvRdeOqiy.png" alt="image-20221205195659841" /><figcaption>image-20221205195659841</figcaption></figure><p>Input is too huge. Then you need too huge neural network. So, this grid interpolation acts like a &quot;position encoding&quot;, which encodes the low dimensional features into high dims.</p><figure><img src="https://s2.loli.net/2023/01/12/lMi3tK9NPgcWUaI.png" alt="image-20221208162026398" /><figcaption>image-20221208162026398</figcaption></figure><p>NeRFusion CVPR22: online!</p><h3 id="point-cloud">2. point cloud</h3><figure><img src="https://s2.loli.net/2023/01/12/zhYHQnFsgxBLCfM.png" alt="image-20221208162541770" /><figcaption>image-20221208162541770</figcaption></figure><p>Cons:</p><ol type="1"><li>To access local points, you need to specifically design the data structure. Otherwise, it is O(n)!</li><li>Choose different kernels to retrieve nearby points' features. Oftentimes you assume it is local kernel.</li></ol><p><img src="https://s2.loli.net/2023/01/12/37EbFsANOCc9voX.png" alt="image-20221208163050867" style="zoom:50%;" /></p><h3 id="mesh">3. Mesh</h3><p>Unstructed grids. Compared with point clouds, meshes have connectivity info.</p><figure><img src="https://s2.loli.net/2023/01/12/Dwir9hsm3VgZjQk.png" alt="image-20221208163526289" /><figcaption>image-20221208163526289</figcaption></figure><figure><img src="https://s2.loli.net/2023/01/12/nPMw7T3hqRAU2iv.png" alt="image-20221208163746237" /><figcaption>image-20221208163746237</figcaption></figure><h3 id="multiplanar-images">4. Multiplanar Images</h3><p>Something like project a 3D grid into an axis to get levels of planes.</p><figure><img src="https://s2.loli.net/2023/01/12/CmhFDT5NoiMAOnv.png" alt="image-20221208164038729" /><figcaption>image-20221208164038729</figcaption></figure><p>Pros:</p><ol type="1"><li>Compact</li><li>Very efficient because the hardware and software designs are accelerated to these 2D operations, like bi-linear operations.</li></ol><p>Cons:</p><ol type="1"><li>Resolution bias on plane axis: coz it is discrete betweens planes.</li></ol><p>This is not very wise in my opinion. It is just a temporary tradeoff given nowadays' technologies. Coz everything will be 3D in the future.</p><p><img src="https://s2.loli.net/2023/01/12/UDO6HlWAp3y7qF1.png" alt="image-20221208165534056" />Generate 2D images from different camera views (perhaps). Key point is the tri-plane representation of 3D features.</p><h3 id="multiresolution-grids">5. Multiresolution grids</h3><figure><img src="https://s2.loli.net/2023/01/12/TlmkK1NDj2dAtUp.png" alt="image-20221208165714329" /><figcaption>image-20221208165714329</figcaption></figure><p>Pros:</p><ol start="2" type="1"><li>Stable coz you indeed need both low and high resolution info</li></ol><h3 id="hash-grids">6. Hash grids</h3><p><img src="https://s2.loli.net/2023/01/12/NZtH7wfxpSPVkGe.png" alt="image-20221208170131069" /> <span class="math display">\[[x,y,z]\text{ coordinates}\rightarrow \text{Hash function()} \rightarrow \text{Fixed size codebook}\]</span> Pros:</p><ol type="1"><li>No matter how big is the original data, you can use a fixed size codebook as the input feature.</li><li>Can be online!</li></ol><p>Cons:</p><ol type="1"><li>May still need large codebooks</li><li>Features not spatially local. I don't think the hash grid is a good idea if this drawback exists. But isn't there a simple way to generate features with local info remaining?</li></ol><h3 id="codebook-grids">7. Codebook grids</h3><figure><img src="https://s2.loli.net/2023/01/12/pnBJGxM6jNHD2v5.png" alt="image-20221208170955887" /><figcaption>image-20221208170955887</figcaption></figure><p>Instead of storing features of points in grids, store a (index to a) code in a codebook. The size of the codebook is fixed, so the overall size can be controlled as much smaller.</p><p>cons:</p><ol type="1"><li>To make the indexing operation differentiable, the computing complexity rises here.</li><li>Using hash is to get rid of the complex data structure, but the indices bring it back.</li></ol><h3 id="bounding-volume-hierarchies">8. Bounding Volume Hierarchies</h3><figure><img src="https://s2.loli.net/2023/01/12/LQ6fzh21OltTJxq.png" alt="image-20221208171806113" /><figcaption>image-20221208171806113</figcaption></figure><p>Commonly used method in computer graphics</p><h3 id="others-voxel">9. Others (voxel)</h3><figure><img src="https://s2.loli.net/2023/01/12/5sE1MYpOLB4mPCF.png" alt="image-20221208173124734" /><figcaption>image-20221208173124734</figcaption></figure><ul><li>For dynamic nerfs, is there any better hybrid representation? Sure.</li><li>Is there any explicit bias of these hybird representations that we can discover and then design regularization? Sure.</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Computer Notes </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Computer Vision </tag>
+            
+            <tag> NeRF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>NeRF Network Architecture</title>
+      <link href="/blog/NeRF-Network-Architecture/"/>
+      <url>/blog/NeRF-Network-Architecture/</url>
+      
+        <content type="html"><![CDATA[<p>This is part of <a href="https://jyzhu.top/NeRF-Notebook/">my journey of learning NeRF</a>.</p><h2 id="network-architecture">2.1. Network Architecture</h2><h3 id="input-encoding">1. Input Encoding</h3><p>Similar as NLP, they use position encodings. Like Sinusoid functions. I also remember an encoding method which takes into consider of the 光线的散射</p><h3 id="activation-functions">2. Activation functions</h3><p>ReLU is not perfect for this task. Because it 不能解决对高阶导有constraints的函数。</p><p>SIREN is a replacement.</p><h3 id="symmetry-invariance-equivariance">3. Symmetry, Invariance &amp; Equivariance</h3><figure><img src="https://s2.loli.net/2023/01/12/tynBhWCulMINrU3.png" alt="image-20221205193423558" /><figcaption>image-20221205193423558</figcaption></figure><figure><img src="https://s2.loli.net/2023/01/12/Rjx5h2kfY34JZct.png" alt="image-20221205193614341" /><figcaption>image-20221205193614341</figcaption></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Computer Notes </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Computer Vision </tag>
+            
+            <tag> NeRF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Manipulate Neural Fields</title>
       <link href="/blog/Manipulate-Neural-Fields/"/>
       <url>/blog/Manipulate-Neural-Fields/</url>
@@ -722,33 +776,6 @@
     
     
     <entry>
-      <title>NeRF Hybrid representations</title>
-      <link href="/blog/NeRF-Hybrid-representations/"/>
-      <url>/blog/NeRF-Hybrid-representations/</url>
-      
-        <content type="html"><![CDATA[<p>This is part of <a href="https://jyzhu.top/NeRF-Notebook/">my journey of learning NeRF</a>.</p><h2 id="hybrid-representations">2.2. Hybrid representations</h2><h3 id="tradeoffs-of-choosing-a-proper-representation">Tradeoffs of choosing a proper representation</h3><figure><img src="https://s2.loli.net/2023/01/12/NyvS91xlLJA8KWR.png" alt="image-20221208172055153" /><figcaption>image-20221208172055153</figcaption></figure><figure><img src="https://s2.loli.net/2023/01/12/sDg8FHQcjrGRW1b.png" alt="image-20221208172209556" /><figcaption>image-20221208172209556</figcaption></figure><p>You may choose one proper representation depending on your own application</p><h3 id="grid">1. Grid</h3><figure><img src="https://s2.loli.net/2023/01/12/ZpYEMbXvRdeOqiy.png" alt="image-20221205195659841" /><figcaption>image-20221205195659841</figcaption></figure><p>Input is too huge. Then you need too huge neural network. So, this grid interpolation acts like a &quot;position encoding&quot;, which encodes the low dimensional features into high dims.</p><figure><img src="https://s2.loli.net/2023/01/12/lMi3tK9NPgcWUaI.png" alt="image-20221208162026398" /><figcaption>image-20221208162026398</figcaption></figure><p>NeRFusion CVPR22: online!</p><h3 id="point-cloud">2. point cloud</h3><figure><img src="https://s2.loli.net/2023/01/12/zhYHQnFsgxBLCfM.png" alt="image-20221208162541770" /><figcaption>image-20221208162541770</figcaption></figure><p>Cons:</p><ol type="1"><li>To access local points, you need to specifically design the data structure. Otherwise, it is O(n)!</li><li>Choose different kernels to retrieve nearby points' features. Oftentimes you assume it is local kernel.</li></ol><p><img src="https://s2.loli.net/2023/01/12/37EbFsANOCc9voX.png" alt="image-20221208163050867" style="zoom:50%;" /></p><h3 id="mesh">3. Mesh</h3><p>Unstructed grids. Compared with point clouds, meshes have connectivity info.</p><figure><img src="https://s2.loli.net/2023/01/12/Dwir9hsm3VgZjQk.png" alt="image-20221208163526289" /><figcaption>image-20221208163526289</figcaption></figure><figure><img src="https://s2.loli.net/2023/01/12/nPMw7T3hqRAU2iv.png" alt="image-20221208163746237" /><figcaption>image-20221208163746237</figcaption></figure><h3 id="multiplanar-images">4. Multiplanar Images</h3><p>Something like project a 3D grid into an axis to get levels of planes.</p><figure><img src="https://s2.loli.net/2023/01/12/CmhFDT5NoiMAOnv.png" alt="image-20221208164038729" /><figcaption>image-20221208164038729</figcaption></figure><p>Pros:</p><ol type="1"><li>Compact</li><li>Very efficient because the hardware and software designs are accelerated to these 2D operations, like bi-linear operations.</li></ol><p>Cons:</p><ol type="1"><li>Resolution bias on plane axis: coz it is discrete betweens planes.</li></ol><p>This is not very wise in my opinion. It is just a temporary tradeoff given nowadays' technologies. Coz everything will be 3D in the future.</p><p><img src="https://s2.loli.net/2023/01/12/UDO6HlWAp3y7qF1.png" alt="image-20221208165534056" />Generate 2D images from different camera views (perhaps). Key point is the tri-plane representation of 3D features.</p><h3 id="multiresolution-grids">5. Multiresolution grids</h3><figure><img src="https://s2.loli.net/2023/01/12/TlmkK1NDj2dAtUp.png" alt="image-20221208165714329" /><figcaption>image-20221208165714329</figcaption></figure><p>Pros:</p><ol start="2" type="1"><li>Stable coz you indeed need both low and high resolution info</li></ol><h3 id="hash-grids">6. Hash grids</h3><p><img src="https://s2.loli.net/2023/01/12/NZtH7wfxpSPVkGe.png" alt="image-20221208170131069" /> <span class="math display">\[[x,y,z]\text{ coordinates}\rightarrow \text{Hash function()} \rightarrow \text{Fixed size codebook}\]</span> Pros:</p><ol type="1"><li>No matter how big is the original data, you can use a fixed size codebook as the input feature.</li><li>Can be online!</li></ol><p>Cons:</p><ol type="1"><li>May still need large codebooks</li><li>Features not spatially local. I don't think the hash grid is a good idea if this drawback exists. But isn't there a simple way to generate features with local info remaining?</li></ol><h3 id="codebook-grids">7. Codebook grids</h3><figure><img src="https://s2.loli.net/2023/01/12/pnBJGxM6jNHD2v5.png" alt="image-20221208170955887" /><figcaption>image-20221208170955887</figcaption></figure><p>Instead of storing features of points in grids, store a (index to a) code in a codebook. The size of the codebook is fixed, so the overall size can be controlled as much smaller.</p><p>cons:</p><ol type="1"><li>To make the indexing operation differentiable, the computing complexity rises here.</li><li>Using hash is to get rid of the complex data structure, but the indices bring it back.</li></ol><h3 id="bounding-volume-hierarchies">8. Bounding Volume Hierarchies</h3><figure><img src="https://s2.loli.net/2023/01/12/LQ6fzh21OltTJxq.png" alt="image-20221208171806113" /><figcaption>image-20221208171806113</figcaption></figure><p>Commonly used method in computer graphics</p><h3 id="others-voxel">9. Others (voxel)</h3><figure><img src="https://s2.loli.net/2023/01/12/5sE1MYpOLB4mPCF.png" alt="image-20221208173124734" /><figcaption>image-20221208173124734</figcaption></figure><ul><li>For dynamic nerfs, is there any better hybrid representation? Sure.</li><li>Is there any explicit bias of these hybird representations that we can discover and then design regularization? Sure.</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Computer Notes </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Computer Vision </tag>
-            
-            <tag> NeRF </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>NeRF Notebook</title>
       <link href="/blog/NeRF-Notebook/"/>
       <url>/blog/NeRF-Notebook/</url>
@@ -781,33 +808,6 @@
       <url>/blog/Prior-based-reconstruction-of-neural-fields/</url>
       
         <content type="html"><![CDATA[<p>This is part of <a href="https://jyzhu.top/NeRF-Notebook/">my journey of learning NeRF</a>.</p><h2 id="prior-based-reconstruction-of-neural-fields">2.4. Prior-based reconstruction of neural fields</h2><p>Sounds like a one-shot task: instead of fitting and optimizing a neural field each for one scene; let's learn a prior distribution of neural field. Then, given a specific scene, it adjusts the neural field in just one forward.</p><figure><img src="https://s2.loli.net/2023/01/12/rMOwKRJBuedFm1n.png" alt="image-20221211234430727" /><figcaption>image-20221211234430727</figcaption></figure><h3 id="how-does-the-latent-code-look-like">How does the latent code look like?</h3><figure><img src="https://s2.loli.net/2023/01/12/A41EOlYCBXrUxto.png" alt="image-20221211234923290" /><figcaption>image-20221211234923290</figcaption></figure><ul><li>Global: not local. A small latent code represents a neural field<ul><li>main limitation: can only represent very simple (single) object. coz if you have multiple objects in a scene, the degree of freedom grows non-linearly.</li><li><strong>How about giving the natural language descriptions as conditions???</strong></li></ul></li><li>Local: you get different latent codes considering the locality where you are. So, you have a prior 3D data structure to store the latent codes.<ul><li>3D point clouds -&gt; grids -&gt; triplanes interpolation</li></ul></li></ul><blockquote><p>Convolutional Occupancy Networks</p></blockquote><h3 id="autodecoder-instead-of-encoder-decoder">Autodecoder instead of Encoder-decoder</h3><figure><img src="https://s2.loli.net/2023/01/12/zr2GnpBXeZDJUqa.png" alt="image-20221212005012783" /><figcaption>image-20221212005012783</figcaption></figure><ul><li><p>Encoder is a 2D CNN structure.</p></li><li><p>But while using autodecoder, the backpropogate through the forward map (i.e., the neural renderer) will give the 3D structural information to the latent codes directly. <span class="math display">\[\text{latent code }\hat z=\arg \min_z \|\text{Render(}\Phi)-g.t.\|\]</span> <img src="https://s2.loli.net/2023/01/12/FQjMgibmNtIP4ca.png" alt="image-20221212004946040" /></p></li></ul><p><strong>Instead of trying to build the encoder, sometimes just use the backpropogation through the forward map is helpful.</strong></p><h3 id="light-field-networks----dont-need-to-render-anymore">Light field networks -- Don't need to render anymore</h3><figure><img src="https://s2.loli.net/2023/01/12/FVP15fmBYz8rEoe.png" alt="image-20221212005908926" /><figcaption>image-20221212005908926</figcaption></figure><p>Instead of learning a NeRF that you use a neural renderer to generate all points along a ray; you can learn a network to directly give you a color along a ray. So you do not use a 3d coordinate as the query, instead, use a ray.</p><p>But this do not work in complicated task yet.</p><figure><img src="https://s2.loli.net/2023/01/12/mAFx6pzqaIuUMin.png" alt="image-20221212010316991" /><figcaption>image-20221212010316991</figcaption></figure><h3 id="outlook">Outlook</h3><ul><li>You don't need to use 600 images of a scene to reconstruct it. Synthesis images?</li><li>Open minds: other ways to skip the expensive forward map? (e.g., the light field)</li><li>Understanding the scene like humans do: disentangle different objects</li><li>Local conditioning methods? Regular grids are easy to tackle with, but it's harder for point clouds / factorized representations</li><li>Transformers: seems like local conditioning</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Computer Notes </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Computer Vision </tag>
-            
-            <tag> NeRF </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>NeRF Network Architecture</title>
-      <link href="/blog/NeRF-Network-Architecture/"/>
-      <url>/blog/NeRF-Network-Architecture/</url>
-      
-        <content type="html"><![CDATA[<p>This is part of <a href="https://jyzhu.top/NeRF-Notebook/">my journey of learning NeRF</a>.</p><h2 id="network-architecture">2.1. Network Architecture</h2><h3 id="input-encoding">1. Input Encoding</h3><p>Similar as NLP, they use position encodings. Like Sinusoid functions. I also remember an encoding method which takes into consider of the 光线的散射</p><h3 id="activation-functions">2. Activation functions</h3><p>ReLU is not perfect for this task. Because it 不能解决对高阶导有constraints的函数。</p><p>SIREN is a replacement.</p><h3 id="symmetry-invariance-equivariance">3. Symmetry, Invariance &amp; Equivariance</h3><figure><img src="https://s2.loli.net/2023/01/12/tynBhWCulMINrU3.png" alt="image-20221205193423558" /><figcaption>image-20221205193423558</figcaption></figure><figure><img src="https://s2.loli.net/2023/01/12/Rjx5h2kfY34JZct.png" alt="image-20221205193614341" /><figcaption>image-20221205193614341</figcaption></figure>]]></content>
       
       
       <categories>
@@ -2230,25 +2230,6 @@
     
     
     <entry>
-      <title>无题</title>
-      <link href="/blog/%E6%97%A0%E9%A2%98-trashed/"/>
-      <url>/blog/%E6%97%A0%E9%A2%98-trashed/</url>
-      
-        <content type="html"><![CDATA[<p>想念过去的你<br />我从未见过她<br />却如此熟悉她<br />命运使我们永不能相见<br />我却是深爱着她<br />是怎样的不幸<br />使我没有从一出生就遇见你<br />陪伴你 经历你<br />把更多的我献给你</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>荒诞笔记</title>
       <link href="/blog/%E8%8D%92%E8%AF%9E%E7%AC%94%E8%AE%B0/"/>
       <url>/blog/%E8%8D%92%E8%AF%9E%E7%AC%94%E8%AE%B0/</url>
@@ -2705,25 +2686,6 @@
     
     
     <entry>
-      <title>可我仍然在谈论爱</title>
-      <link href="/blog/%E5%8F%AF%E6%88%91%E4%BB%8D%E7%84%B6%E5%9C%A8%E8%B0%88%E8%AE%BA%E7%88%B1/"/>
-      <url>/blog/%E5%8F%AF%E6%88%91%E4%BB%8D%E7%84%B6%E5%9C%A8%E8%B0%88%E8%AE%BA%E7%88%B1/</url>
-      
-        <content type="html"><![CDATA[<p>我们谈论过了爱，<br />我们做爱，<br />我们表达爱，<br />我们相爱，<br />可我仍然不相信爱。</p><p>我仍然防备所谓爱，<br />可我仍然奉爱为信仰，<br />我侍奉以浪荡，<br />我全心全意地<br />剖开鲜血的肉，<br />可我仍然没有见到爱。</p><p>我仍然不见爱，<br />可我仍然在谈论爱，<br />我推翻爱，<br />重塑以情与欲，<br />我贬损爱，掷进心里的淤泥。<br />可我仍然在等待爱。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>一月随想</title>
       <link href="/blog/thoughts-in-jan/"/>
       <url>/blog/thoughts-in-jan/</url>
@@ -2748,25 +2710,6 @@
       <url>/blog/winter-praise/</url>
       
         <content type="html"><![CDATA[<p>一</p><p>一切就绪，<br />天空熄灭，<br />一颗金星胆怯地接近月亮。</p><p>雪下了，<br />丝丝入扣，<br />反光的大地上<br />她发着光亮。</p><p>二</p><p>一位怀疑主义者，<br />偏信了一场雪，<br />继而偏信<br />世界停靠的港湾，<br />偏信一对望眼中<br />露怯的命运。</p><p>三</p><p>让我们赞美这个冬天，<br />让穿着白色礼服的孩童<br />高歌你与我。</p><p>20.1.7</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>二零二零</title>
-      <link href="/blog/2020/"/>
-      <url>/blog/2020/</url>
-      
-        <content type="html"><![CDATA[<p>为什么人们不能更成熟而绝望一些<br />为什么总有那些天真的眼光<br />仪式感和意义都是人类的谎言吗<br />一如那些水面的月亮<br />我的路会通往哪里呢<br />我的画会画成什么样<br />银河吗 一张床吗<br />神的模样吗 跳舞的小人吗<br />在每一个年与年之交<br />我用我空洞的眼神展望</p><p>19.12.31</p>]]></content>
       
       
       <categories>
@@ -2868,44 +2811,6 @@
       <url>/blog/%E6%97%A0%E5%A3%B0%E7%9A%84%E8%8A%B1%E5%9B%AD/</url>
       
         <content type="html"><![CDATA[<p>我在久陷的沼泽地里<br />发现一株花，<br />当我把我奉献给一段沉沦<br />不知道多少回<br />我挣扎，她也挣扎<br />如今我闻着她颤抖的香气<br />在一部分我与另一部分之间<br />我开设无声的花园<br />19.12.12 午夜</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>真相，永恒的痛苦</title>
-      <link href="/blog/%E7%9C%9F%E7%9B%B8%EF%BC%8C%E6%B0%B8%E6%81%92%E7%9A%84%E7%97%9B%E8%8B%A6/"/>
-      <url>/blog/%E7%9C%9F%E7%9B%B8%EF%BC%8C%E6%B0%B8%E6%81%92%E7%9A%84%E7%97%9B%E8%8B%A6/</url>
-      
-        <content type="html"><![CDATA[<p>为什么活着<br />为什么选择活着<br />为什么心甘情愿地选择活着？<br />因为好奇真相。</p><p>因为好奇真相而活着，<br />因为满足好奇而快乐，<br />因为真理本身而欣喜若狂。<br />「朝闻道，夕死可矣。」</p><p>因为一点一点地接近真相而一天一天地活着，<br />因为永远只能趋近真相<br />无法看到真相本身而痛苦。<br />因为真相活着也因为真相痛苦。<br />因为活着而痛苦。<br />因为永恒而痛苦。<br />生的痛苦。<br />永恒的痛苦。</p><p>19.12.6</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>麻木的齿轮</title>
-      <link href="/blog/%E9%BA%BB%E6%9C%A8%E7%9A%84%E9%BD%BF%E8%BD%AE/"/>
-      <url>/blog/%E9%BA%BB%E6%9C%A8%E7%9A%84%E9%BD%BF%E8%BD%AE/</url>
-      
-        <content type="html"><![CDATA[<p>绝望 绝望<br />没有爱 没有生活<br />我是半锈不锈的齿轮<br />背负一整个旧机器的压力<br />一边怕死一边奔向死<br />一边奔向死一边试图挣脱死<br />我是生跟死的矛盾<br />可惜微不足道<br />我的振臂高呼比不过任何一个人的振臂高呼<br />此刻有千千万万个朋友正在声嘶力竭<br />没有用<br />没有退路<br />就这么走着<br />要么麻木<br />要么从哪天开始<br />没有明天</p><p>19.11.28</p>]]></content>
       
       
       <categories>
@@ -3260,44 +3165,6 @@
     
     
     <entry>
-      <title>每一份醉意都是爱意</title>
-      <link href="/blog/every-drink-is-love/"/>
-      <url>/blog/every-drink-is-love/</url>
-      
-        <content type="html"><![CDATA[<p>如果我可以操纵草木风景<br />我想为你倾现所有的美丽<br />如果世界上有最好的词语<br />那一定是我发明来形容你</p><p>如果光阴全攥在我的手里<br />我愿意把它们都虚掷给你<br />如果醉酒后人只会说真话<br />我愿意在你面前醉一万次<br />让你听听我心底的我爱你</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>一口气</title>
-      <link href="/blog/sigh/"/>
-      <url>/blog/sigh/</url>
-      
-        <content type="html"><![CDATA[<p>如果一个人还觉得自己年轻<br />那就大胆地做一些事情吧<br />这样<br />就算全世界再没有人<br />需要她的呐喊<br />她也曾经为自己呐喊过</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>我读《不能承受的生命之轻》</title>
       <link href="/blog/reading-lightness-of-being/"/>
       <url>/blog/reading-lightness-of-being/</url>
@@ -3538,44 +3405,6 @@
     
     
     <entry>
-      <title>荒诞之一</title>
-      <link href="/blog/one-of-absurd/"/>
-      <url>/blog/one-of-absurd/</url>
-      
-        <content type="html"><![CDATA[<p>人与人可用戏谑的话对话一整天<br />戏谑之中竟然可以包含信息<br />一个人竟然可以在戏谑与严肃之间无缝切换<br />这就是荒诞之一</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>无题（几？）</title>
-      <link href="/blog/no-title-no-num/"/>
-      <url>/blog/no-title-no-num/</url>
-      
-        <content type="html"><![CDATA[<p>如果给我永恒</p><p>也请给我遗忘</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>白色的一天</title>
       <link href="/blog/white-day/"/>
       <url>/blog/white-day/</url>
@@ -3614,106 +3443,11 @@
     
     
     <entry>
-      <title>未来</title>
-      <link href="/blog/future/"/>
-      <url>/blog/future/</url>
-      
-        <content type="html"><![CDATA[<p>我们小时候从低的视角<br />仰望成人的高高的世界<br />觉得那里充满了真与理<br />等到现在有了成人目光<br />发现遍地是错误与愚蠢<br />不停上演在过去和将来</p><p>我们坚信真理客观存在<br />可现实好像还遥遥无期<br />就算是为了正确的真理<br />做出的仍是愚蠢的事情<br />伟大的马克思教给我们<br />螺旋发展否定再否定吧<br />更好的世界永远在未来</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>爱两首</title>
-      <link href="/blog/love-2/"/>
-      <url>/blog/love-2/</url>
-      
-        <content type="html"><![CDATA[<h1 id="一-歌颂爱">一 歌颂爱</h1><p>不是阳光底下生长的青草<br />是阴暗角落滋生的低落<br />不是值得夸耀的喜事<br />是难以启齿的心事<br />是下坠的细碎的沙<br />从海平面开始抛洒<br />是湿 是冷 是旋涡<br />是欲 是哀 是毁灭<br />与风花雪月无关<br />与甜无关<br />大部分是涩的<br />是痛苦 是病入膏肓本身<br />是不便于由穿着雪白礼服的孩童高歌的<br />应该由一只黑色的乌鸦斜斜地飞过<br />嘴里嘀嘀咕咕<br />念叨着一种叫做爱的神秘事物</p><h1 id="二-你的向往我的向往">二 你的向往，我的向往</h1><p>你向往什么？<br />这问号是镶有珍贵珠宝的，<br />我向往什么？<br />这问号是鲜红色的。</p><p>你的烂漫的心底，<br />我想有一片草原，一片湖，<br />很少的人，很多的情话。</p><p>我的心里是一片旋涡——<br />有很多的跟我们谈论着同样话题的人，<br />有一片沼泽，我们走在沼泽边上<br />脱下衣服，目光就打量过来。</p><p>自由谈不上<br />我向往一种下坠，<br />一种痴痴的美。</p><p>我向往的爱应该由<br />一只黑色的乌鸦斜斜地飞过，<br />嘴里嘀嘀咕咕着，<br />或者吞吞吐吐着。<br />你呢，你想飞翔吗？</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>老家</title>
       <link href="/blog/hometown/"/>
       <url>/blog/hometown/</url>
       
         <content type="html"><![CDATA[<p>来凤</p><p>这儿的每一条路都可以一眼望到头</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>孩子</title>
-      <link href="/blog/children/"/>
-      <url>/blog/children/</url>
-      
-        <content type="html"><![CDATA[<p>孩子难产了<br />那冰冷的手术刀在与时间抗争<br />大瓶大瓶红色的血液顺着血管流到地上<br />医生和护士们眼里含着热切<br />妈妈在无声地呐喊<br />门外<br />一众血液中流淌着相同基因的亲人们在盼<br />一些来来往往的人透出善意的眼光<br />流淌着孕育这样一个脑的基因的血液<br />全人类都在为这个孩子祈祷<br />祈祷他安全 活着来到这个世界<br />祈祷他睁开双眼看这些星星和飞鸟<br />他不安的手开始挥舞<br />他的血液接近沸腾<br />一阵狂暴的屏息声——<br />紧接着是一声<br />哇——<br />孩子用哭声宣告了人生第一场战役的胜利<br />他是妈妈 医生 护士 亲人 全人类努力的结晶<br />这世上不乏孩子</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>光明</title>
-      <link href="/blog/brightness/"/>
-      <url>/blog/brightness/</url>
-      
-        <content type="html"><![CDATA[<p>每一个人都是粗粗的线条<br />在绵薄无力的纸似的世间活着<br />踏着钢丝绳细的时间<br />稍有不慎<br />跌入畜养着毒蛇的深渊<br />这毒蛇比世间所有毒物加起来还毒<br />吐着毒刺似的信子<br />垂着水银似的涎<br />那獠牙锋利如针尖<br />脸上狰狞地写着粗秽的皱纹<br />那毒蛇仰起头看着钢丝上的人间<br />那双眼透出的分明是欣喜<br />是爱<br />是浓烈的希望与光明<br />那毒蛇不是别的<br />竟是一个个得道的仙</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>brainwash</title>
-      <link href="/blog/brainwash/"/>
-      <url>/blog/brainwash/</url>
-      
-        <content type="html"><![CDATA[<p>他们是向幼儿<br />说着那些成套的谎言<br />编纂一个虚假的梦似的世界<br />来让你从一开始<br />还辨不清的时候<br />对这个世界产生爱与眷恋<br />再在漫长的一生之中慢慢消磨</p>]]></content>
       
       
       <categories>
@@ -3752,25 +3486,6 @@
       <url>/blog/no-title-1/</url>
       
         <content type="html"><![CDATA[<p>仔细听发现蝉的沉默和星的闪发生了共振</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>我想象夜色的时候</title>
-      <link href="/blog/when-i-imagine-night/"/>
-      <url>/blog/when-i-imagine-night/</url>
-      
-        <content type="html"><![CDATA[<p>我想象夜色的时候<br />想到了蝉鸣<br />漆黑的云<br />趴在纱窗外的蛾子<br />地球另一端的黄昏和黎明<br />我忘了星星</p>]]></content>
       
       
       <categories>
@@ -3936,25 +3651,6 @@
     
     
     <entry>
-      <title>Summer &amp; You</title>
-      <link href="/blog/summer-you/"/>
-      <url>/blog/summer-you/</url>
-      
-        <content type="html"><![CDATA[<p>你擅长将贴切的比喻信手拈来<br />我擅长夸你</p><p>阳光雪白<br />使我想念你的肉体</p><p>我们在酒店的床上下军棋<br />你的司令收了我的半壁江山<br />和我的心</p><p>抱住你<br />不知道是一只脚<br />不知道是在迷糊的梦里<br />不知道竟然凑上去亲了亲</p><p>6.23</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>有一个年轻人活在死与意义的追逐中</title>
       <link href="/blog/a-young-person/"/>
       <url>/blog/a-young-person/</url>
@@ -4088,9 +3784,9 @@
       
         <tags>
             
-            <tag> Notebook </tag>
-            
             <tag> Java </tag>
+            
+            <tag> Notebook </tag>
             
         </tags>
       
@@ -4134,9 +3830,9 @@
       
         <tags>
             
-            <tag> C </tag>
-            
             <tag> Notebook </tag>
+            
+            <tag> C </tag>
             
         </tags>
       
@@ -4207,25 +3903,6 @@
       <url>/blog/wake-up-with-lhy/</url>
       
         <content type="html"><![CDATA[<p>夜里有七发子弹射向我<br />只有一发不幸射中我<br />醒来冰冷的早晨<br />发现我缺失了<br />一个头朝下的夜晚<br />玻璃外是静止的灯光和楼<br />玻璃里是黑暗的楼梯和你和我<br />那些交谈都缺失了<br />只闪烁着那个身影<br />是萤火虫般的闪烁<br />原来那个夜晚的你的我是在下坠啊<br />我跌到无何有之所<br />一发子弹射向我<br />醒来粘稠的生活</p><p>18.6.25给李惠英生日</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>18.5.23</title>
-      <link href="/blog/18-5-23/"/>
-      <url>/blog/18-5-23/</url>
-      
-        <content type="html"><![CDATA[<p>我头里欲裂的是你的身子<br />翻过身背对着是你的影子<br />我握着你的钢笔<br />我画不出汹涌的江<br />画不出泛滥的海<br />画不出连绵的雾<br />画不出蒸腾的水汽<br />没有你在身边的晚上<br />压在我身上的只有干柴<br />在等火</p>]]></content>
       
       
       <categories>
@@ -4360,68 +4037,11 @@
     
     
     <entry>
-      <title>书📚</title>
-      <link href="/blog/my-books/"/>
-      <url>/blog/my-books/</url>
-      
-        <content type="html"><![CDATA[<p>书太无情了<br />是在把冰冷的思考刺进你<br />如果有一天我因为书自杀了<br />那不怪我</p><p>17.2.4</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>文化的满月</title>
       <link href="/blog/%E6%96%87%E5%8C%96%E7%9A%84%E6%BB%A1%E6%9C%88/"/>
       <url>/blog/%E6%96%87%E5%8C%96%E7%9A%84%E6%BB%A1%E6%9C%88/</url>
       
         <content type="html"><![CDATA[<p>满月的那一晚<br />A好巧不巧爱上了一桶水<br />不是谁人像水<br />不是水暗指谁人<br />这桶水就是一桶普通的水<br />但它现在不一般了<br />不是因为这些水<br />与木桶在满月的晚上相遇<br />被赋予价值<br />而是因为<br />它是世界上第一桶被人类爱上的水<br />从此刻开始<br />文化粒子溶解在了这桶水里<br />它成了一桶文化！<br />这让A联想到<br />祖先第一次抬头赏月的那一刻起<br />天上赫然挂了一轮人化的月亮！<br />此一刻<br />真真乃人性光辉<br />大爱光辉新新闪耀一刻<br />不知道那桶水作何感想</p><p>16.9.16中秋夜</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>16.4.25</title>
-      <link href="/blog/16-4-25/"/>
-      <url>/blog/16-4-25/</url>
-      
-        <content type="html"><![CDATA[<p>我有一张青面<br />一副獠牙<br />斑点满身<br />从来趁夜深人静<br />背朝月光静立</p><p>可是远远的你<br />只看见<br />暗绿色的无际草地背景<br />模糊糊的<br />你以为我披着洁白的云</p><p>我欲向你坦言我的模样<br />无奈月色暗淡<br />星光也颤颤的 将熄未熄<br />我端起镜子<br />没法照清自己</p><p>16.4.25凌晨两点</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> poems </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>15.12.9</title>
-      <link href="/blog/15-12-9/"/>
-      <url>/blog/15-12-9/</url>
-      
-        <content type="html"><![CDATA[<p>我爱上了一颗星<br />终日沉沦于黑夜<br />我忘了怀里的那株草<br />猛然发现<br />它一直在等<br />等天亮</p><p>15.12.9</p>]]></content>
       
       
       <categories>
